@@ -12,7 +12,7 @@ At Company, there are three independent design systems:
 
 - Design System A (DSA) - primary design system for the enterprise website, so components are created with a focus in desktop design and rely on common responsive web design interaction and measurement standards - e.g., responsive containers are measured in percentages and fonts are measured in `em` units.
 
-- Design System B (DSB) - primary design system for the flagship mobile application, so components are created with a focus in mobile design and rely on common mobile design interaction and measurement standards - e.g., navigation relies on a collapsible drawer and fonts are measured in `rem` units.
+- Design System B (DSB) - primary design system for the flagship mobile application, so components are created with a focus in mobile design and rely on common mobile design interaction and measurement standards - e.g., navigation relies on a collapsible drawer and fonts are measured in `sp` units.
 
 - Design System C (DSB) - primary design system for a standalone internal tool that only runs in Chrome or Firefox, so components are created with a focus in desktop design but are tailored to the use-case - e.g., no adherence to response web design standards and fonts are measured in `px` units.
 
@@ -21,3 +21,7 @@ Company is aggregating their design systems to one enterprise design system with
 - Design System D (DSD) - primary design system for enterprise-wide applications, so components are created with a focus in both mobile and responsive desktop design and commononize interaction and measurement standards - e.g., shared navigation structure with a top-bar on desktop and a drawer on mobile and fonts are measured in `rem` units.
 
 The process to aggregate DSA, DSB, and DSC is complex and requires engineers split across multiple teams and across multiple domains (web, mobile, etc.) to understand all the many components created across all three design systems, call out similarities and differences in overlapping components between design systems, and create new components that suit the cross-platform needs.
+
+For example, in the diagram below, each design system independently contains at least one component. These components are utilized in their respective applications and do not conflict with one another. However, when all three design systems are aggregated into DSD, there are three overlapping `.section-header` typography components, each with a different design specification, measurement unit, etc. This is the introduced complexity by aggregating design systems: which design system has priority in setting the standard in the aggregated DSD? Additionally, which design systems must comply with the standard that was not their own, and how does the impact each platform (e.g., accessibility, behavior, etc.)?
+
+![](docs/img/dsd-aggregation.svg)
