@@ -44,42 +44,59 @@ class _HomePageState extends State<HomePage> {
                     crossAxisSpacing: _spacing,
                     mainAxisSpacing: _spacing,
                     padding: EdgeInsetsDirectional.all(_spacing),
-                    children:
-                        List.generate(snapshot.data!.docs.length, (index) {
-                      Book book = Book.fromJson(snapshot.data!.docs[index]
-                          .data() as Map<String, dynamic>);
+                    children: List<Widget>.generate(snapshot.data!.docs.length,
+                            (index) {
+                          Book book = Book.fromJson(snapshot.data!.docs[index]
+                              .data() as Map<String, dynamic>);
 
-                      return Card(
-                          color: Theme.of(context).colorScheme.surfaceVariant,
-                          child: Container(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Column(children: [
-                                Flexible(
-                                  child: FractionallySizedBox(
-                                      alignment: Alignment.topCenter,
-                                      heightFactor: 0.9,
-                                      child: Image.network(
-                                          'https://covers.openlibrary.org/b/isbn/${book.isbn}-L.jpg',
-                                          fit: BoxFit.fitHeight)),
-                                ),
-                                Container(
-                                    padding: EdgeInsets.all(_spacing * 2),
-                                    child: Column(children: [
-                                      Text(book.title,
-                                          style: const TextStyle(
-                                              fontSize: 20.0,
-                                              fontWeight: FontWeight.bold)),
-                                      Text('by ${book.author}',
-                                          style: const TextStyle(
-                                              fontSize: 16.0,
-                                              fontWeight: FontWeight.normal)),
-                                      Text('Published ${book.publicationDate}',
-                                          style: const TextStyle(
-                                              fontSize: 16.0,
-                                              fontWeight: FontWeight.normal)),
-                                    ])),
-                              ])));
-                    }))
+                          return Card(
+                              color:
+                                  Theme.of(context).colorScheme.surfaceVariant,
+                              child: Container(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Column(children: [
+                                    Flexible(
+                                      child: FractionallySizedBox(
+                                          alignment: Alignment.topCenter,
+                                          heightFactor: 0.9,
+                                          child: Image.network(
+                                              'https://covers.openlibrary.org/b/isbn/${book.isbn}-L.jpg',
+                                              fit: BoxFit.fitHeight)),
+                                    ),
+                                    Container(
+                                        padding: EdgeInsets.all(_spacing * 2),
+                                        child: Column(children: [
+                                          Text(book.title,
+                                              style: const TextStyle(
+                                                  fontSize: 20.0,
+                                                  fontWeight: FontWeight.bold)),
+                                          Text('by ${book.author}',
+                                              style: const TextStyle(
+                                                  fontSize: 16.0,
+                                                  fontWeight:
+                                                      FontWeight.normal)),
+                                          Text(
+                                              'Published ${book.publicationDate}',
+                                              style: const TextStyle(
+                                                  fontSize: 16.0,
+                                                  fontWeight:
+                                                      FontWeight.normal)),
+                                        ])),
+                                  ])));
+                        }) +
+                        [
+                          IconButton(
+                              onPressed: () {
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                    content: const Text(
+                                        'A modal appears and a form is submitted...'),
+                                    duration: const Duration(seconds: 10),
+                                    backgroundColor:
+                                        Theme.of(context).colorScheme.primary));
+                              },
+                              icon: const Icon(Icons.add),
+                              iconSize: 64)
+                        ])
               };
             }));
   }
