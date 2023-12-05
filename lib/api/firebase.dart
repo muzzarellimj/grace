@@ -8,6 +8,7 @@ class FirebaseApi {
     String collection, {
     String? field,
     String? value,
+    String? orderBy,
     int? limit,
   }) {
     CollectionReference collectionReference = _store.collection(collection);
@@ -15,6 +16,10 @@ class FirebaseApi {
 
     if (field != null && value != null) {
       query = collectionReference.where(field, isEqualTo: value);
+    }
+
+    if (orderBy != null) {
+      query = collectionReference.orderBy(orderBy);
     }
 
     if (limit != null) {
