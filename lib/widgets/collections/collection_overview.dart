@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:grace/models/book.dart';
 import 'package:grace/services/queries/impl/recent_query_strategy.dart';
 import 'package:grace/services/queries/query_strategy.dart';
@@ -7,7 +8,7 @@ import 'package:grace/widgets/collections/resource.dart';
 
 const double basePadding = 24.0;
 const double breakpoint = 392.0;
-const backgroundColor = Color.fromRGBO(245, 243, 240, 1.0);
+const Color backgroundColor = Color.fromRGBO(245, 243, 240, 1.0);
 
 class CollectionSnapshot extends StatefulWidget {
   final String collection;
@@ -50,7 +51,10 @@ class _CollectionSnapshotState extends State<CollectionSnapshot> {
               padding: const EdgeInsets.only(bottom: basePadding),
               child: Text(
                 'Most recent books',
-                style: Theme.of(context).textTheme.headlineSmall,
+                style: GoogleFonts.nunitoSans(
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             StreamBuilder(
@@ -61,23 +65,32 @@ class _CollectionSnapshotState extends State<CollectionSnapshot> {
                     const Center(child: Text('Error')),
                   AsyncSnapshot(hasData: false) =>
                     const Center(child: Text('Loading')),
-                  _ => GridView.count(
-                      crossAxisCount:
-                          MediaQuery.of(context).size.width ~/ breakpoint,
-                      shrinkWrap: true,
-                      mainAxisSpacing: basePadding / 2,
-                      crossAxisSpacing: basePadding / 2,
-                      childAspectRatio: 1.5,
-                      children: List<Widget>.generate(
-                        snapshot.data?.docs.length,
-                        (index) {
-                          Book book =
-                              Book.fromJson(snapshot.data?.docs[index]?.data());
+                  _ => snapshot.data?.docs.length <= 0
+                      ? Text(
+                          'You don\'t seem to have any books added to your collection. Click the button above to add one!',
+                          style: GoogleFonts.nunitoSans(
+                            color: Colors.black.withOpacity(0.6),
+                          ),
+                        )
+                      : GridView.count(
+                          crossAxisCount: MediaQuery.of(context).size.width <=
+                                  breakpoint
+                              ? 1
+                              : MediaQuery.of(context).size.width ~/ breakpoint,
+                          shrinkWrap: true,
+                          mainAxisSpacing: basePadding / 2,
+                          crossAxisSpacing: basePadding / 2,
+                          childAspectRatio: 1.5,
+                          children: List<Widget>.generate(
+                            snapshot.data?.docs.length,
+                            (index) {
+                              Book book = Book.fromJson(
+                                  snapshot.data?.docs[index]?.data());
 
-                          return Resource(book: book);
-                        },
-                      ),
-                    ),
+                              return Resource(book: book);
+                            },
+                          ),
+                        ),
                 };
               },
             ),
