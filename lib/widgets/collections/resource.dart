@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grace/models/book.dart';
 import 'package:grace/widgets/buttons/primary_button.dart';
+import 'package:grace/widgets/collections/resource_detail.dart';
 
-const double breakpoint = 392;
+const double breakpoint = 450;
 const double baseSpacing = 14.0;
 const double borderRadius = 12.0;
 const Color backgroundColor = Colors.white;
-const Color borderColor = Color(0xFFD9D8D5);
+const Color borderColor = Color.fromRGBO(217, 216, 213, 1);
 
 class Resource extends StatelessWidget {
   final Book book;
@@ -73,7 +74,21 @@ class Resource extends StatelessWidget {
                         child: PrimaryIconButton(
                           icon: Icons.arrow_outward,
                           label: 'See more',
-                          onPressed: () {},
+                          onPressed: () {
+                            showModalBottomSheet(
+                              backgroundColor: Colors.white,
+                              elevation: 0,
+                              constraints: BoxConstraints(
+                                maxWidth: MediaQuery.of(context).size.width <=
+                                        breakpoint
+                                    ? MediaQuery.of(context).size.width
+                                    : MediaQuery.of(context).size.width * 0.75,
+                              ),
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  ResourceDetail(book: book),
+                            );
+                          },
                         ),
                       ),
                     )
@@ -84,6 +99,4 @@ class Resource extends StatelessWidget {
           ],
         ));
   }
-
-  // TODO: create modal logic onPressed
 }
