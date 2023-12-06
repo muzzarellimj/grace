@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 const double iconSize = 16.0;
 const Color backgroundColor = Color.fromRGBO(4, 64, 20, 0.15);
@@ -35,7 +36,7 @@ class PrimaryIconButton extends StatelessWidget {
       ),
       label: Text(
         label,
-        style: const TextStyle(
+        style: GoogleFonts.nunitoSans(
           fontWeight: FontWeight.bold,
         ),
       ),
