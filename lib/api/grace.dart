@@ -52,6 +52,8 @@ class GraceApi {
       if (authorResponse == null) {
         return null;
       }
+
+      return authorResponse;
     });
 
     var authorResponses = await Future.wait(authorFutures);
