@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 const double xMarginMultipler = 0.25;
 const double yMarginMultipler = 0.015;
 const double borderRadius = 12.0;
+const double breakpoint = 450.0;
 
 class GraceNotification {
   static SnackBar success({
@@ -21,8 +22,13 @@ class GraceNotification {
       ),
       elevation: 0,
       margin: EdgeInsets.only(
-        left: MediaQuery.of(context).size.width * xMarginMultipler,
-        right: MediaQuery.of(context).size.width * xMarginMultipler,
+        // left: MediaQuery.of(context).size.width * xMarginMultipler,
+        left: MediaQuery.of(context).size.width <= breakpoint
+            ? MediaQuery.of(context).size.width * xMarginMultipler / 2
+            : MediaQuery.of(context).size.width * xMarginMultipler,
+        right: MediaQuery.of(context).size.width <= breakpoint
+            ? MediaQuery.of(context).size.width * xMarginMultipler / 2
+            : MediaQuery.of(context).size.width * xMarginMultipler,
         bottom: MediaQuery.of(context).size.height * yMarginMultipler,
       ),
       dismissDirection: DismissDirection.up,
