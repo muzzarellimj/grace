@@ -18,6 +18,9 @@ class Grace extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(routerConfig: GraceRouter.router);
+    return MaterialApp.router(
+      routerConfig: GraceRouter.router,
+      debugShowCheckedModeBanner: false,
+    );
   }
 }
