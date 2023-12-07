@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grace/models/book.dart';
-import 'package:grace/services/queries/impl/recent_query_strategy.dart';
+import 'package:grace/services/queries/impl/random_query_strategy.dart';
 import 'package:grace/services/queries/query_strategy.dart';
 import 'package:grace/widgets/collections/resource.dart';
 
