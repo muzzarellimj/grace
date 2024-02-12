@@ -1,17 +1,9 @@
 # Grace
 
-Grace is an open-source, cross-platform collection management application built with [Flutter](https://flutter.dev/) in [Dart](https://dart.dev/). Grace aims to be a robust, easy to use platform to support graceful collection management via an intuitive user interface, collection snapshots, and edition-specific metadata. Grace currently supports web and iOS platforms.
+Grace is an open-source, cross-platform collection management application built with [Flutter](https://flutter.dev/) in [Dart](https://dart.dev/). Grace aims to be a robust, easy to use platform to support graceful collection management via an intuitive user interface, collection snapshots, and edition-specific metadata. Grace is built alongside two supporting API:
 
-- [Getting Started](#getting-started)
-- [Features](#features)
-
-Supporting resources are as follows:
-
-- [Code Smell and Refactoring](docs/code-smell/code-smell.md)
-- [Design](docs/design/design.md)
-- [Presentation](docs/presentation//presentation.pdf)
-- [Requirements](docs/requirement/requirement.md)
-- [User Manual](docs/manual/manual.md)
+- [Grace Authentication API](https://github.com/muzzarellimj/grace-authentication-api) - a Node-based REST API serving authentication requests
+- [Grace Material API](https://github.com/muzzarellimj/grace-material-api) - a Go-based REST API serving materials requests
 
 ## Getting Started
 
@@ -23,25 +15,3 @@ flutter run
 ```
 
 The latter command will prompt you to select a platform based on the available native and emulated devices, so feel free to pick whichever is available from the list of supported platforms.
-
-## Features
-
-Grace was built with a few simple features in mind: add a book, fetch metadata, organize and store metadata, and provide some methods to see the book.
-
-### Adding a book
-
-Users can input an ISBN-10 or ISBN-13 to the resource addition modal, and a few things will occur:
-
-- `OpenLibraryApi` fetches edition metadata with the provided ISBN
-- `OpenLibraryApi` fetches work metadata with the edition response
-- `OpenLibraryApi` fetches all author metadata with the work response
-- `BookParser` prepares and parses edition, work, and author data to extract approriate data
-- `FirebaseApi` inserts the parsed document into the collection
-
-### Viewing a collection
-
-Users can visit the home screen to see a snapshot of all recently added books, each displaying the cover image, title, author(s), and excerpt within a compact card layout.
-
-### Viewing a book
-
-Users can click or tap a button on each resource card to open a bottom sheet modal that provides all additional metadata about the specific book edition, including the publishers, contributors, ISBN, and more.
