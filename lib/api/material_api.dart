@@ -20,7 +20,7 @@ class MaterialApi {
 
   static Future<dynamic> search(Material material, String query) async {
     http.Response response = await http
-        .get(Uri.http(host, '${material.endpoint}/search', {'id': query}));
+        .get(Uri.http(host, '${material.endpoint}/search', {'query': query}));
 
     return response;
   }
