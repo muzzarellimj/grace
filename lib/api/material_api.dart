@@ -11,9 +11,9 @@ class MaterialApi {
     return response;
   }
 
-  static Future<dynamic> store(Material material, int id) async {
+  static Future<dynamic> store(Material material, String id) async {
     http.Response response =
-        await http.post(Uri.http(host, material.endpoint, {'id': '$id'}));
+        await http.post(Uri.http(host, material.endpoint, {'id': id}));
 
     return response;
   }

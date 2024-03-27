@@ -6,6 +6,7 @@ import 'package:grace/model/material/material.dart';
 import 'package:grace/model/response/get_material.dart';
 import 'package:grace/model/response/get_material_set.dart';
 import 'package:grace/model/response/response_status.dart';
+import 'package:grace/model/response/store_material.dart';
 import 'package:http/http.dart' as http;
 
 class MaterialService<M> {
@@ -42,6 +43,30 @@ class MaterialService<M> {
     }
   }
 
+  Future<StoreMaterialResponse> store(String id) async {
+    http.Response response = await MaterialApi.store(material, id);
+
+    switch (response.statusCode) {
+      case HttpStatus.ok || HttpStatus.created:
+        return StoreMaterialResponse(
+          status: ResponseStatus.success,
+          message: null,
+        );
+
+      case HttpStatus.noContent || HttpStatus.badRequest:
+        return StoreMaterialResponse(
+          status: ResponseStatus.warning,
+          message: 'A matching material could not be found. Please try again.',
+        );
+
+      default:
+        return StoreMaterialResponse(
+          status: ResponseStatus.failure,
+          message: defaultErrorMessage,
+        );
+    }
+  }
+
   Future<GetMaterialSetResponse<M>> search(String query) async {
     http.Response response = await MaterialApi.search(material, query);
 
@@ -60,7 +85,7 @@ class MaterialService<M> {
       case HttpStatus.noContent || HttpStatus.badRequest:
         return GetMaterialSetResponse<M>(
           status: ResponseStatus.warning,
-          message: 'A material could not be found. Please try again.',
+          message: 'A matching material could not be found. Please try again.',
           materials: List.empty(),
         );
 
