@@ -1,4 +1,4 @@
-import 'package:grace/utility/response_status.dart';
+import 'package:grace/service/response_status.dart';
 
 class GetMaterialResponse<M> {
   ResponseStatus status;
