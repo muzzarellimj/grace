@@ -131,6 +131,9 @@ google-services.json
 firebase_app_id_file.json
 GoogleService-Info.plist
 
+# flutter_dotenv
+**/.env
+
 # FVM
 .fvm/
 
