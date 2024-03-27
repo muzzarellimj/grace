@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:grace/api/material_api.dart';
+import 'package:grace/model/material/material.dart';
 import 'package:grace/model/response/get_material.dart';
-import 'package:grace/service/material/material.dart';
-import 'package:grace/service/response_status.dart';
+import 'package:grace/model/response/response_status.dart';
 import 'package:http/http.dart' as http;
 
 class MaterialService<M> {

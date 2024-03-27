@@ -1,7 +1,7 @@
-import 'package:grace/model/game/franchise.dart';
-import 'package:grace/model/game/genre.dart';
-import 'package:grace/model/game/platform.dart';
-import 'package:grace/model/game/studio.dart';
+import 'package:grace/model/material/game/franchise.dart';
+import 'package:grace/model/material/game/genre.dart';
+import 'package:grace/model/material/game/platform.dart';
+import 'package:grace/model/material/game/studio.dart';
 
 class Game {
   int id;

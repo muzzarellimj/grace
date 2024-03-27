@@ -1,4 +1,4 @@
-import 'package:grace/service/material/material.dart';
+import 'package:grace/model/material/material.dart';
 import 'package:http/http.dart' as http;
 
 const String host = 'localhost:8080';

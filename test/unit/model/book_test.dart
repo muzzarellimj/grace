@@ -1,4 +1,4 @@
-import 'package:grace/model/book/book.dart';
+import 'package:grace/model/material/book/book.dart';
 import 'package:test/test.dart';
 
 const Map<String, dynamic> mockResponse = {

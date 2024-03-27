@@ -1,6 +1,6 @@
-import 'package:grace/model/book/author.dart';
-import 'package:grace/model/book/publisher.dart';
-import 'package:grace/model/book/topic.dart';
+import 'package:grace/model/material/book/author.dart';
+import 'package:grace/model/material/book/publisher.dart';
+import 'package:grace/model/material/book/topic.dart';
 
 class Book {
   int id;

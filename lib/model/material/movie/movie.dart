@@ -1,5 +1,5 @@
-import 'package:grace/model/movie/genre.dart';
-import 'package:grace/model/movie/production_company.dart';
+import 'package:grace/model/material/movie/genre.dart';
+import 'package:grace/model/material/movie/production_company.dart';
 
 class Movie {
   int id;

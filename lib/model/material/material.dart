@@ -1,6 +1,6 @@
-import 'package:grace/model/book/book.dart';
-import 'package:grace/model/game/game.dart';
-import 'package:grace/model/movie/movie.dart';
+import 'package:grace/model/material/book/book.dart';
+import 'package:grace/model/material/game/game.dart';
+import 'package:grace/model/material/movie/movie.dart';
 
 enum Material {
   book(endpoint: '/api/book', parser: Book.fromJson),

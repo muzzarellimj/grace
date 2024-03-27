@@ -1,8 +1,8 @@
-import 'package:grace/model/book/book.dart';
+import 'package:grace/model/material/book/book.dart';
+import 'package:grace/model/material/material.dart';
 import 'package:grace/model/response/get_material.dart';
-import 'package:grace/service/material/material.dart';
-import 'package:grace/service/material/material_service.dart';
-import 'package:grace/service/response_status.dart';
+import 'package:grace/model/response/response_status.dart';
+import 'package:grace/service/material_service.dart';
 import 'package:test/test.dart';
 
 void main() {
