@@ -16,8 +16,8 @@ const Map<String, dynamic> mockResponse = {
         "last_name": "Dahl",
         "biography":
             "Roald Dahl was a British novelist, short story writer, and screenwriter.\r\n\r\nBorn in north Cardiff, Wales, to Norwegian parents, Dahl served in the Royal Air Force during the Second World War, in which he became a flying ace and intelligence agent. He rose to prominence in the 1940s with works for both children and adults, and became one of the world's bestselling authors. His short stories are known for their unexpected endings, and his children's books for their unsentimental, often very dark humour. ([Source][1].)\r\n\r\n\r\n  [1]: http://en.wikipedia.org/wiki/Roald_Dahl",
-        "image": "9395323",
-        "reference": "/authors/OL34184A"
+        "image": "https://covers.openlibrary.org/a/olid/OL34184A-L.jpg",
+        "reference": "OL34184A"
       }
     ],
     "publishers": [
