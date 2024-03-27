@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 const Map<String, dynamic> mockResponse = {
   "data": {
-    "id": 2,
+    "id": 4,
     "title": "Lilo & Stitch",
     "tagline": "There's one in every family.",
     "description":
@@ -15,15 +15,17 @@ const Map<String, dynamic> mockResponse = {
     "production_companies": [
       {"id": 2, "name": "Walt Disney Pictures", "image": "", "reference": 2},
       {
-        "id": 3,
+        "id": 7,
         "name": "Walt Disney Feature Animation",
-        "image": "/4UBohOtIr9DtxylH48Qsg6aDow6.png",
+        "image":
+            "https://image.tmdb.org/t/p/original/4UBohOtIr9DtxylH48Qsg6aDow6.png",
         "reference": 171656
       }
     ],
-    "release_date": "2002-06-21",
+    "release_date": 1024617600,
     "runtime": 85,
-    "image": "/m13Vbzv7R2GMAl3GXFrkmMEgCFQ.jpg",
+    "image":
+        "https://image.tmdb.org/t/p/original/m13Vbzv7R2GMAl3GXFrkmMEgCFQ.jpg",
     "reference": 11544
   },
   "status": 200

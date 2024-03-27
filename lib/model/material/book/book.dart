@@ -10,7 +10,7 @@ class Book {
   List<BookAuthor> authors;
   List<BookPublisher> publishers;
   List<BookTopic> topics;
-  String publishDate;
+  int publishDate;
   int pages;
   String isbn10;
   String isbn13;

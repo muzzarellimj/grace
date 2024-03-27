@@ -8,7 +8,7 @@ class Movie {
   String description;
   List<MovieGenre> genres;
   List<MovieProductionCompany> productionCompanies;
-  String releaseDate;
+  int releaseDate;
   int runtime;
   String image;
   int reference;

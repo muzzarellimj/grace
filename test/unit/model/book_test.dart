@@ -56,7 +56,7 @@ const Map<String, dynamic> mockResponse = {
       {"id": 31, "name": "Fantasy fiction"},
       {"id": 32, "name": "Children's plays, English"}
     ],
-    "publish_date": "October 1, 1988",
+    "publish_date": 591667200,
     "pages": 96,
     "isbn10": "0140328726",
     "isbn13": "9780140328721",
