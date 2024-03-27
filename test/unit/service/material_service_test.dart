@@ -1,9 +1,11 @@
 import 'package:grace/model/material/book/book.dart';
+import 'package:grace/model/material/game/game.dart';
 import 'package:grace/model/material/material.dart';
 import 'package:grace/model/material/movie/search_result.dart';
 import 'package:grace/model/response/get_material.dart';
 import 'package:grace/model/response/get_material_set.dart';
 import 'package:grace/model/response/response_status.dart';
+import 'package:grace/model/response/store_material.dart';
 import 'package:grace/service/material_service.dart';
 import 'package:test/test.dart';
 
@@ -33,6 +35,26 @@ void main() {
       expect(response.status, equals(ResponseStatus.warning));
       expect(response.message, isNotNull);
       expect(response.material, isNull);
+    });
+  });
+
+  group('MaterialService<Game>', () {
+    test('.store(`2485`) should return ResponseStatus.success and no message',
+        () async {
+      MaterialService service = MaterialService<Game>(material: Material.game);
+
+      StoreMaterialResponse response = await service.store('2485');
+      expect(response.status, equals(ResponseStatus.success));
+      expect(response.message, isNull);
+    });
+
+    test('.store(``) should return ResponseStatus.warning and message',
+        () async {
+      MaterialService service = MaterialService<Game>(material: Material.game);
+
+      StoreMaterialResponse response = await service.store('');
+      expect(response.status, equals(ResponseStatus.warning));
+      expect(response.message, isNotNull);
     });
   });
 
