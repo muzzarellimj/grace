@@ -10,7 +10,7 @@ import 'package:grace/model/response/store_material.dart';
 import 'package:http/http.dart' as http;
 
 class MaterialService<M> {
-  final Material material;
+  final MaterialDescriptor material;
 
   MaterialService({required this.material});
 

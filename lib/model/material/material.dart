@@ -5,7 +5,7 @@ import 'package:grace/model/material/game/search_result.dart';
 import 'package:grace/model/material/movie/movie.dart';
 import 'package:grace/model/material/movie/search_result.dart';
 
-enum Material {
+enum MaterialDescriptor {
   book(
     endpoint: '/api/book',
     matFactory: Book.fromJson,
@@ -26,7 +26,7 @@ enum Material {
   final Function matFactory;
   final Function setFactory;
 
-  const Material({
+  const MaterialDescriptor({
     required this.endpoint,
     required this.matFactory,
     required this.setFactory,

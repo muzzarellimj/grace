@@ -14,7 +14,8 @@ void main() {
     test(
         '.fetch(1) should return ResponseStatus.success, no message, and Book object',
         () async {
-      MaterialService service = MaterialService<Book>(material: Material.book);
+      MaterialService service =
+          MaterialService<Book>(material: MaterialDescriptor.book);
 
       GetMaterialResponse response = await service.fetch(1);
       expect(response.status, equals(ResponseStatus.success));
@@ -29,7 +30,8 @@ void main() {
     test(
         '.fetch(-1) should return ResponseStatus.warning, message, and no Book object',
         () async {
-      MaterialService service = MaterialService<Book>(material: Material.book);
+      MaterialService service =
+          MaterialService<Book>(material: MaterialDescriptor.book);
 
       GetMaterialResponse response = await service.fetch(-1);
       expect(response.status, equals(ResponseStatus.warning));
@@ -41,7 +43,8 @@ void main() {
   group('MaterialService<Game>', () {
     test('.store(`2485`) should return ResponseStatus.success and no message',
         () async {
-      MaterialService service = MaterialService<Game>(material: Material.game);
+      MaterialService service =
+          MaterialService<Game>(material: MaterialDescriptor.game);
 
       StoreMaterialResponse response = await service.store('2485');
       expect(response.status, equals(ResponseStatus.success));
@@ -50,7 +53,8 @@ void main() {
 
     test('.store(``) should return ResponseStatus.warning and message',
         () async {
-      MaterialService service = MaterialService<Game>(material: Material.game);
+      MaterialService service =
+          MaterialService<Game>(material: MaterialDescriptor.game);
 
       StoreMaterialResponse response = await service.store('');
       expect(response.status, equals(ResponseStatus.warning));
@@ -62,8 +66,8 @@ void main() {
     test(
         '.search(`harry potter philosopher`) should return ResponseStatus.success, no message, and List<MovieSearchResult>',
         () async {
-      MaterialService service =
-          MaterialService<MovieSearchResult>(material: Material.movie);
+      MaterialService service = MaterialService<MovieSearchResult>(
+          material: MaterialDescriptor.movie);
 
       GetMaterialSetResponse response =
           await service.search('harry potter philosopher');
@@ -79,8 +83,8 @@ void main() {
     test(
         '.search(``) should return ResponseStatus.warning, message, and empty List<MovieSearchResult>',
         () async {
-      MaterialService service =
-          MaterialService<MovieSearchResult>(material: Material.movie);
+      MaterialService service = MaterialService<MovieSearchResult>(
+          material: MaterialDescriptor.movie);
 
       GetMaterialSetResponse response = await service.search('');
       expect(response.status, equals(ResponseStatus.warning));
