@@ -26,6 +26,8 @@ class MaterialPreviewContext extends StatelessWidget {
             child: Text(
               headline,
               style: Theme.of(context).textTheme.titleMedium,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
           Padding(
@@ -33,6 +35,8 @@ class MaterialPreviewContext extends StatelessWidget {
             child: Text(
               attribution,
               style: Theme.of(context).textTheme.bodySmall,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
           Padding(
@@ -40,6 +44,8 @@ class MaterialPreviewContext extends StatelessWidget {
             child: Text(
               description,
               style: Theme.of(context).textTheme.bodySmall,
+              maxLines: 4,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
           Expanded(
