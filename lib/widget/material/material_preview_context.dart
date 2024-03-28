@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:grace/theme.dart';
+import 'package:grace/utility/theme.dart';
 import 'package:grace/widgets/buttons/primary_button.dart';
 
 class MaterialPreviewContext extends StatelessWidget {
@@ -17,12 +17,13 @@ class MaterialPreviewContext extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(GraceTheme.calculateSpacing(2.0)),
+      padding: EdgeInsets.all(ThemeUtility.calculateSpacing(2.0)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(bottom: GraceTheme.calculateSpacing(1.5)),
+            padding:
+                EdgeInsets.only(bottom: ThemeUtility.calculateSpacing(1.5)),
             child: Text(
               headline,
               style: Theme.of(context).textTheme.titleMedium,
@@ -31,7 +32,8 @@ class MaterialPreviewContext extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(bottom: GraceTheme.calculateSpacing(1.5)),
+            padding:
+                EdgeInsets.only(bottom: ThemeUtility.calculateSpacing(1.5)),
             child: Text(
               attribution,
               style: Theme.of(context).textTheme.bodySmall,
@@ -40,7 +42,8 @@ class MaterialPreviewContext extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(bottom: GraceTheme.calculateSpacing(1.0)),
+            padding:
+                EdgeInsets.only(bottom: ThemeUtility.calculateSpacing(1.0)),
             child: Text(
               description,
               style: Theme.of(context).textTheme.bodySmall,

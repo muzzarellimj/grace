@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class GraceTheme {
-  static const double _defaultSpacing = 8.0;
-
   static ThemeData theme = ThemeData(
     scaffoldBackgroundColor: const Color.fromRGBO(245, 243, 240, 0.1),
     canvasColor: const Color.fromRGBO(245, 243, 240, 1.0),
@@ -88,12 +86,6 @@ class GraceTheme {
       ),
     ),
   );
-
-  static double calculateSpacing(double factor) {
-    double spacing = _defaultSpacing * factor;
-
-    return spacing > 0 ? spacing : _defaultSpacing;
-  }
 
   static const TextStyle Function({
     Paint? background,
