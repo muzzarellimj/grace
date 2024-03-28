@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:grace/firebase_options.dart';
 import 'package:grace/router.dart';
+import 'package:grace/theme.dart';
 
 void main() async {
   await dotenv.load();
@@ -24,6 +25,7 @@ class Grace extends StatelessWidget {
     return MaterialApp.router(
       routerConfig: GraceRouter.router,
       debugShowCheckedModeBanner: false,
+      theme: GraceTheme.theme,
     );
   }
 }
