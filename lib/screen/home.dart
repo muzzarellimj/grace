@@ -5,6 +5,7 @@ import 'package:grace/model/response/response_status.dart';
 import 'package:grace/service/material_service.dart';
 import 'package:grace/utility/theme.dart';
 import 'package:grace/widget/collection/collection.dart';
+import 'package:grace/widget/search/search.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -41,6 +42,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   'Welcome back to Grace, Dr. Cho',
                   style: Theme.of(context).textTheme.headlineLarge,
                 ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  bottom: ThemeUtility.calculateSpacing(2.0),
+                ),
+                child: const Search(),
               ),
               Padding(
                 padding: EdgeInsets.only(
