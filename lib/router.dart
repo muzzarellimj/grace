@@ -26,6 +26,7 @@ class GraceRouter {
             navigatorKey: _homeNavigatorKey,
             routes: [
               GoRoute(
+                name: '/',
                 path: '/',
                 pageBuilder: (BuildContext context, GoRouterState state) =>
                     const NoTransitionPage(
