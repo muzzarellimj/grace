@@ -23,10 +23,14 @@ class GraceTheme {
       ),
       displaySmall: _withRoboto(
         fontSize: 48.0,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w300,
       ),
 
       // headline
+      headlineLarge: _withRoboto(
+        fontSize: 42.0,
+        fontWeight: FontWeight.w400,
+      ),
       headlineMedium: _withRoboto(
         fontSize: 32.0,
         fontWeight: FontWeight.w400,
