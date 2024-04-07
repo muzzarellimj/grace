@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:grace/utility/theme.dart';
+import 'package:grace/theme/format.dart';
+import 'package:grace/theme/measurement.dart';
 import 'package:grace/widget/material/material_preview.dart';
 
 class Collection extends StatelessWidget {
@@ -20,26 +21,25 @@ class Collection extends StatelessWidget {
       color: Theme.of(context).canvasColor,
       elevation: 0,
       child: Container(
-        padding: EdgeInsets.all(ThemeUtility.calculateSpacing(3.0)),
+        padding: EdgeInsets.all(Measurement.getSpacing(3.0)),
         width: MediaQuery.of(context).size.width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding:
-                  EdgeInsets.only(bottom: ThemeUtility.calculateSpacing(3.0)),
+              padding: EdgeInsets.only(bottom: Measurement.getSpacing(3.0)),
               child: Text(
                 headline,
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
             ),
             GridView.count(
-              crossAxisCount: ThemeUtility.valueOrOne(
+              crossAxisCount: Format.intOrOne(
                 MediaQuery.of(context).size.width ~/ minimumWidgetWidth,
               ),
               shrinkWrap: true,
-              mainAxisSpacing: ThemeUtility.calculateSpacing(2.0),
-              crossAxisSpacing: ThemeUtility.calculateSpacing(2.0),
+              mainAxisSpacing: Measurement.getSpacing(2.0),
+              crossAxisSpacing: Measurement.getSpacing(2.0),
               childAspectRatio: 1.5,
               children: List<Widget>.generate(materials.length, (index) {
                 return MaterialPreview(mat: materials[index]);
