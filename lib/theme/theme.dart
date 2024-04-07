@@ -5,85 +5,85 @@ import 'package:google_fonts/google_fonts.dart';
 
 class GraceTheme {
   static ThemeData theme = ThemeData(
-    scaffoldBackgroundColor: const Color.fromRGBO(245, 243, 240, 0.1),
     canvasColor: const Color.fromRGBO(245, 243, 240, 1.0),
     primaryColor: const Color.fromRGBO(4, 64, 20, 1.0),
     primaryColorLight: const Color.fromRGBO(4, 64, 20, 0.15),
+    scaffoldBackgroundColor: const Color.fromRGBO(245, 243, 240, 0.1),
     textTheme: TextTheme(
       // display
-      displayLarge: _withRoboto(
+      displayLarge: roboto(
         fontSize: 94.0,
         fontWeight: FontWeight.w300,
         letterSpacing: -1.5,
       ),
-      displayMedium: _withRoboto(
+      displayMedium: roboto(
         fontSize: 60.0,
         fontWeight: FontWeight.w300,
         letterSpacing: -0.5,
       ),
-      displaySmall: _withRoboto(
+      displaySmall: roboto(
         fontSize: 48.0,
         fontWeight: FontWeight.w300,
       ),
 
       // headline
-      headlineLarge: _withRoboto(
+      headlineLarge: roboto(
         fontSize: 42.0,
         fontWeight: FontWeight.w400,
       ),
-      headlineMedium: _withRoboto(
+      headlineMedium: roboto(
         fontSize: 32.0,
         fontWeight: FontWeight.w400,
         letterSpacing: 0.25,
       ),
-      headlineSmall: _withRoboto(
+      headlineSmall: roboto(
         fontSize: 24.0,
         fontWeight: FontWeight.w400,
       ),
 
       // title
-      titleLarge: _withRoboto(
+      titleLarge: roboto(
         fontSize: 20.0,
         fontWeight: FontWeight.w700,
         letterSpacing: 0.15,
       ),
-      titleMedium: _withRoboto(
+      titleMedium: roboto(
         fontSize: 16.0,
         fontWeight: FontWeight.w700,
         height: 1.15,
         letterSpacing: 0.1,
       ),
-      titleSmall: _withRoboto(
+      titleSmall: roboto(
         fontSize: 14.0,
         fontWeight: FontWeight.w700,
         letterSpacing: 0.15,
       ),
 
       // label
-      labelLarge: _withRoboto(
+      labelLarge: roboto(
         fontSize: 14.0,
         fontWeight: FontWeight.w700,
         height: 1.15,
       ),
-      labelSmall: _withRoboto(
+      labelSmall: roboto(
         fontSize: 10.0,
         fontWeight: FontWeight.w700,
         height: 1.15,
       ),
 
       // body
-      bodyLarge: _withRoboto(
+      bodyLarge: roboto(
         fontSize: 16.0,
         fontWeight: FontWeight.w400,
         letterSpacing: 0.5,
       ),
-      bodyMedium: _withRoboto(
+      bodyMedium: roboto(
         fontSize: 14.0,
         fontWeight: FontWeight.w400,
         height: 1.15,
         letterSpacing: 0.25,
       ),
-      bodySmall: _withRoboto(
+      bodySmall: roboto(
         fontSize: 12.0,
         fontWeight: FontWeight.w400,
         letterSpacing: 0.25,
@@ -111,5 +111,5 @@ class GraceTheme {
     TextBaseline? textBaseline,
     TextStyle? textStyle,
     double? wordSpacing,
-  }) _withRoboto = GoogleFonts.roboto;
+  }) roboto = GoogleFonts.roboto;
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:grace/firebase_options.dart';
 import 'package:grace/router.dart';
-import 'package:grace/theme.dart';
+import 'package:grace/theme/theme.dart';
 
 void main() async {
   await dotenv.load();
