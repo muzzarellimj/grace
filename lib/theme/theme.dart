@@ -65,6 +65,11 @@ class GraceTheme {
         fontWeight: FontWeight.w700,
         height: 1.15,
       ),
+      labelMedium: roboto(
+        fontSize: 12.0,
+        fontWeight: FontWeight.w700,
+        height: 1.15,
+      ),
       labelSmall: roboto(
         fontSize: 10.0,
         fontWeight: FontWeight.w700,
