@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grace/theme/measurement.dart';
-import 'package:grace/widgets/buttons/primary_button.dart';
+import 'package:grace/widget/button/primary_icon.dart';
 
 class MaterialPreviewContext extends StatelessWidget {
   final String headline;
