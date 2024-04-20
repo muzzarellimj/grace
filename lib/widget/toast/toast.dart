@@ -53,7 +53,8 @@ class Toast {
       ),
       content: Text(
         message,
-        style: Theme.of(context).textTheme.labelLarge,
+        style:
+            Theme.of(context).textTheme.labelLarge?.copyWith(color: foreground),
         textAlign: TextAlign.center,
       ),
     );
