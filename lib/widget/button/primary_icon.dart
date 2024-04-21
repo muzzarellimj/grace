@@ -5,36 +5,41 @@ class PrimaryIconButton extends StatelessWidget {
   final IconData icon;
   final String label;
   final Function() onPressed;
+  final double? widthFactor;
 
   const PrimaryIconButton({
     super.key,
     required this.icon,
     required this.label,
     required this.onPressed,
+    this.widthFactor,
   });
 
   @override
   Widget build(BuildContext context) {
-    return FilledButton.tonalIcon(
-      onPressed: onPressed,
-      icon: Icon(
-        icon,
-        size: Measurement.getSizing(1.35),
-      ),
-      label: Text(
-        label,
-      ),
-      style: ButtonStyle(
-        animationDuration: Duration.zero,
-        backgroundColor: MaterialStateColor.resolveWith(
-          (states) => Theme.of(context).primaryColorLight,
+    return FractionallySizedBox(
+      widthFactor: widthFactor ?? 1.0,
+      child: FilledButton.tonalIcon(
+        onPressed: onPressed,
+        icon: Icon(
+          icon,
+          size: Measurement.getSizing(1.35),
         ),
-        textStyle: MaterialStateProperty.resolveWith(
-          (states) => Theme.of(context).textTheme.labelMedium,
+        label: Text(
+          label,
         ),
-        foregroundColor: getForegroundState(context),
-        overlayColor: MaterialStateColor.resolveWith(
-          (states) => Theme.of(context).primaryColor,
+        style: ButtonStyle(
+          animationDuration: Duration.zero,
+          backgroundColor: MaterialStateColor.resolveWith(
+            (states) => Theme.of(context).primaryColorLight,
+          ),
+          textStyle: MaterialStateProperty.resolveWith(
+            (states) => Theme.of(context).textTheme.labelMedium,
+          ),
+          foregroundColor: getForegroundState(context),
+          overlayColor: MaterialStateColor.resolveWith(
+            (states) => Theme.of(context).primaryColor,
+          ),
         ),
       ),
     );
