@@ -4,9 +4,12 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:grace/firebase_options.dart';
 import 'package:grace/router.dart';
 import 'package:grace/theme/theme.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   await dotenv.load();
+  await Hive.initFlutter();
+  await Hive.openBox('authentication');
 
   WidgetsFlutterBinding.ensureInitialized();
 
