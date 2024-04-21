@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:grace/screen/authenticate.dart';
 import 'package:grace/screen/collections.dart';
 import 'package:grace/screen/home.dart';
 import 'package:grace/screen/settings.dart';
+import 'package:grace/service/authentication_service.dart';
 import 'package:grace/widget/layout/responsive.dart';
 
 class GraceRouter {
@@ -15,10 +17,29 @@ class GraceRouter {
   static final settingsNavigationKey =
       GlobalKey<NavigatorState>(debugLabel: 'settings');
 
+  static final authenticationService = AuthenticationService();
+
   static GoRouter router = GoRouter(
     navigatorKey: rootNavigationKey,
     initialLocation: '/',
+    redirect: (BuildContext context, GoRouterState state) {
+      if (!authenticationService.isAuthenticated) {
+        return '/signin';
+      }
+
+      return null;
+    },
     routes: [
+      GoRoute(
+        name: 'signin',
+        path: '/signin',
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            NoTransitionPage(
+          child: AuthenticateScreen(
+            authenticationService: authenticationService,
+          ),
+        ),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (
           BuildContext context,
@@ -72,8 +93,10 @@ class GraceRouter {
                   BuildContext context,
                   GoRouterState state,
                 ) =>
-                    const NoTransitionPage(
-                  child: SettingsScreen(),
+                    NoTransitionPage(
+                  child: SettingsScreen(
+                    authenticationService: authenticationService,
+                  ),
                 ),
               )
             ],
