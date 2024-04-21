@@ -13,10 +13,12 @@ class AuthenticationService extends ChangeNotifier {
   bool get isAuthenticated => store.get('isAuthenticated') ?? false;
   String get token => store.get('token') ?? '';
 
-  AuthenticationService() {
-    store.put('isAuthenticated', isAuthenticated);
-    store.put('token', token);
-  }
+  String get id => store.get('id') ?? '';
+  String get externalId => store.get('externalId') ?? '';
+
+  String get email => store.get('email') ?? '';
+  String get firstName => store.get('firstName') ?? '';
+  String get lastName => store.get('lastName') ?? '';
 
   Future<Profile?> authenticate(String email, String password) async {
     http.Response response =
@@ -34,7 +36,15 @@ class AuthenticationService extends ChangeNotifier {
     Map<String, dynamic> json = jsonDecode(response.body);
     Profile profile = Profile.fromJson(json['profile']);
 
-    await storeAuthenticationState(true, json['token']);
+    await storeAuthenticationState(
+      true,
+      json['token'],
+      profile.id,
+      profile.externalId,
+      profile.email,
+      profile.firstName,
+      profile.lastName,
+    );
 
     notifyListeners();
 
@@ -55,7 +65,15 @@ class AuthenticationService extends ChangeNotifier {
     Map<String, dynamic> json = jsonDecode(response.body);
     Profile profile = Profile.fromJson(json['profile']);
 
-    await storeAuthenticationState(true, json['token']);
+    await storeAuthenticationState(
+      true,
+      json['token'],
+      profile.id,
+      profile.externalId,
+      profile.email,
+      profile.firstName,
+      profile.lastName,
+    );
 
     notifyListeners();
 
@@ -76,7 +94,15 @@ class AuthenticationService extends ChangeNotifier {
     Map<String, dynamic> json = jsonDecode(response.body);
     Profile profile = Profile.fromJson(json['profile']);
 
-    await storeAuthenticationState(true, json['token']);
+    await storeAuthenticationState(
+      true,
+      json['token'],
+      profile.id,
+      profile.externalId,
+      profile.email,
+      profile.firstName,
+      profile.lastName,
+    );
 
     notifyListeners();
 
@@ -94,11 +120,32 @@ class AuthenticationService extends ChangeNotifier {
   Future<void> clearAuthenticationState() async {
     await store.put('isAuthenticated', null);
     await store.put('token', null);
+
+    await store.put('id', null);
+    await store.put('externalId', null);
+
+    await store.put('email', null);
+    await store.put('firstName', null);
+    await store.put('lastName', null);
   }
 
   Future<void> storeAuthenticationState(
-      bool isAuthenticated, String token) async {
+    bool isAuthenticated,
+    String token,
+    String id,
+    String? externalId,
+    String? email,
+    String firstName,
+    String lastName,
+  ) async {
     await store.put('isAuthenticated', isAuthenticated);
     await store.put('token', token);
+
+    await store.put('id', id);
+    await store.put('externalId', externalId);
+
+    await store.put('email', email);
+    await store.put('firstName', firstName);
+    await store.put('lastName', lastName);
   }
 }
