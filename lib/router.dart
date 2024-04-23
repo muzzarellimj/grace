@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:grace/screen/authenticate.dart';
+import 'package:grace/screen/authentication/signin_screen.dart';
 import 'package:grace/screen/authentication/signup_screen.dart';
 import 'package:grace/screen/collections.dart';
 import 'package:grace/screen/home.dart';
@@ -50,7 +50,7 @@ class GraceRouter {
         path: '/signin',
         pageBuilder: (BuildContext context, GoRouterState state) =>
             NoTransitionPage(
-          child: AuthenticateScreen(
+          child: SigninScreen(
             authenticationService: authenticationService,
           ),
         ),

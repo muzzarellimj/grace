@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:grace/service/authentication_service.dart';
+import 'package:grace/service/validation_service.dart';
 import 'package:grace/theme/breakpoint.dart';
 import 'package:grace/theme/measurement.dart';
 import 'package:grace/widget/button/primary_icon.dart';
 import 'package:grace/widget/form/text_input.dart';
+import 'package:grace/widget/link/embedded_link_phrase.dart';
 import 'package:grace/widget/toast/toast.dart';
 
-class AuthenticateScreen extends StatefulWidget {
+class SigninScreen extends StatefulWidget {
   final AuthenticationService authenticationService;
+  final ValidationService validationService = ValidationService();
 
-  const AuthenticateScreen({
+  SigninScreen({
     super.key,
     required this.authenticationService,
   });
 
   @override
-  State<AuthenticateScreen> createState() => _AuthenticateScreenState();
+  State<SigninScreen> createState() => _SigninScreenState();
 }
 
-class _AuthenticateScreenState extends State<AuthenticateScreen> {
+class _SigninScreenState extends State<SigninScreen> {
   final _key = GlobalKey<FormState>();
 
   final emailController = TextEditingController();
@@ -72,13 +75,8 @@ class _AuthenticateScreenState extends State<AuthenticateScreen> {
                               child: TextInput(
                                 controller: emailController,
                                 label: 'Email Address',
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter a valid email address.';
-                                  }
-
-                                  return null;
-                                },
+                                validator: (value) => widget.validationService
+                                    .validateEmailAddress(value),
                               ),
                             ),
                             Padding(
@@ -89,15 +87,8 @@ class _AuthenticateScreenState extends State<AuthenticateScreen> {
                                 controller: passwordController,
                                 label: 'Password',
                                 obscure: true,
-                                validator: (value) {
-                                  if (value == null ||
-                                      value.isEmpty ||
-                                      value.length < 8) {
-                                    return 'Please enter a password with 8 or more characters.';
-                                  }
-
-                                  return null;
-                                },
+                                validator: (value) => widget.validationService
+                                    .validatePassword(value),
                               ),
                             ),
                             Padding(
@@ -108,52 +99,14 @@ class _AuthenticateScreenState extends State<AuthenticateScreen> {
                                 icon: Icons.alternate_email,
                                 label: 'Sign in with email',
                                 widthFactor: 0.7,
-                                onPressed: () {
-                                  if (_key.currentState!.validate()) {
-                                    widget.authenticationService
-                                        .authenticate(
-                                      emailController.text,
-                                      passwordController.text,
-                                    )
-                                        .then(
-                                      (profile) {
-                                        if (profile != null) {
-                                          GoRouter.of(context).goNamed('home');
-                                        } else {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            Toast.failure(
-                                              context,
-                                              'Incorrect email address or password - please try again.',
-                                            ).asSnackbar(),
-                                          );
-                                        }
-                                      },
-                                    );
-                                  }
-                                },
+                                onPressed: () => handleEmailButtonPress(),
                               ),
                             ),
                             PrimaryIconButton(
                               icon: Icons.mail,
                               label: 'Sign in with Google',
                               widthFactor: 0.7,
-                              onPressed: () {
-                                widget.authenticationService
-                                    .authenticateGoogle()
-                                    .then(
-                                  (profile) {
-                                    if (profile != null) {
-                                      GoRouter.of(context).goNamed('home');
-                                    } else {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(Toast.failure(context,
-                                                  'Unable to sign in with Google - please sign in on Google.com and try again.')
-                                              .asSnackbar());
-                                    }
-                                  },
-                                );
-                              },
+                              onPressed: () => handleGoogleButtonPress(),
                             )
                           ],
                         ),
@@ -165,39 +118,57 @@ class _AuthenticateScreenState extends State<AuthenticateScreen> {
             ),
             Container(
               padding: EdgeInsets.all(Measurement.getSpacing(3.0)),
-              child: Row(
+              child: EmbeddedLinkPhrase(
+                prefix: 'New to Grace? ',
+                label: 'Sign up',
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'New to Grace? ',
-                    style: Theme.of(context).textTheme.labelLarge,
-                  ),
-                  InkWell(
-                    hoverColor: Theme.of(context).primaryColorLight,
-                    onTap: () {
-                      GoRouter.of(context).goNamed('signup');
-                    },
-                    borderRadius: BorderRadius.circular(12.0),
-                    child: Padding(
-                      padding: EdgeInsets.all(
-                        Measurement.getSpacing(0.5),
-                      ),
-                      child: Text(
-                        'Sign up',
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelLarge!
-                            .copyWith(color: Theme.of(context).primaryColor),
-                      ),
-                    ),
-                  ),
-                ],
+                onTap: () => GoRouter.of(context).goNamed('signup'),
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  void handleEmailButtonPress() {
+    if (_key.currentState!.validate()) {
+      widget.authenticationService
+          .signinEmailPassword(emailController.text, passwordController.text)
+          .then(
+        (String? message) {
+          if (message == null) {
+            GoRouter.of(context).goNamed('home');
+            ScaffoldMessenger.of(context).showSnackBar(Toast.success(
+              context,
+              'You are now signed in. Welcome back to Grace!',
+            ).asSnackbar());
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(Toast.failure(
+              context,
+              message,
+            ).asSnackbar());
+          }
+        },
+      );
+    }
+  }
+
+  void handleGoogleButtonPress() {
+    widget.authenticationService.signinGoogle().then((String? message) {
+      if (message == null) {
+        GoRouter.of(context).goNamed('home');
+        ScaffoldMessenger.of(context).showSnackBar(Toast.success(
+          context,
+          'You are now signed in. Welcome back to Grace!',
+        ).asSnackbar());
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(Toast.failure(
+          context,
+          'Unable to connect to Google - please sign in on Google.com and try again.',
+        ).asSnackbar());
+      }
+    });
   }
 
   @override
