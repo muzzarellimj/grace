@@ -20,6 +20,33 @@ class AuthenticationService extends ChangeNotifier {
   String get firstName => store.get('firstName') ?? '';
   String get lastName => store.get('lastName') ?? '';
 
+  Future<String?> signup(
+    String email,
+    String password,
+    String firstName,
+    String lastName,
+  ) async {
+    http.Response response = await AuthenticationApi.signup(
+      email,
+      password,
+      firstName,
+      lastName,
+      token,
+    );
+
+    if (response.statusCode != HttpStatus.created) {
+      String? message = jsonDecode(response.body)['message'];
+
+      await clearAuthenticationState();
+
+      notifyListeners();
+
+      return message;
+    }
+
+    return null;
+  }
+
   Future<Profile?> authenticate(String email, String password) async {
     http.Response response =
         await AuthenticationApi.authenticationEmailPassword(

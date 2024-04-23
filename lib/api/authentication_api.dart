@@ -12,6 +12,28 @@ class AuthenticationApi {
 
   static bool secure = dotenv.env['PROTOCOL'] == 'https';
 
+  static Future<http.Response> signup(
+    String email,
+    String password,
+    String firstName,
+    String lastName,
+    String token,
+  ) async {
+    return await http.post(
+      UriBuilder.asUri(secure, host, '/api/signup'),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer $token'
+      },
+      body: jsonEncode({
+        'email': email,
+        'password': password,
+        'firstName': firstName,
+        'lastName': lastName,
+      }),
+    );
+  }
+
   static Future<http.Response> authenticationEmailPassword(
       String email, String password, String token) async {
     return await http.post(
