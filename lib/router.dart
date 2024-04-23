@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:grace/screen/authenticate.dart';
+import 'package:grace/screen/authentication/signup_screen.dart';
 import 'package:grace/screen/collections.dart';
 import 'package:grace/screen/home.dart';
 import 'package:grace/screen/settings.dart';
@@ -24,12 +25,26 @@ class GraceRouter {
     initialLocation: '/',
     redirect: (BuildContext context, GoRouterState state) {
       if (!authenticationService.isAuthenticated) {
-        return '/signin';
+        if (state.fullPath != null && state.fullPath!.contains('signup')) {
+          return null;
+        } else {
+          return '/signin';
+        }
       }
 
       return null;
     },
     routes: [
+      GoRoute(
+        name: 'signup',
+        path: '/signup',
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            NoTransitionPage(
+          child: SignupScreen(
+            authenticationService: authenticationService,
+          ),
+        ),
+      ),
       GoRoute(
         name: 'signin',
         path: '/signin',
