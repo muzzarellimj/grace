@@ -47,20 +47,23 @@ class AuthenticationService extends ChangeNotifier {
     return null;
   }
 
-  Future<Profile?> authenticate(String email, String password) async {
+  Future<String?> signinEmailPassword(
+    String email,
+    String password,
+  ) async {
     http.Response response =
-        await AuthenticationApi.authenticationEmailPassword(
-            email, password, token);
+        await AuthenticationApi.signinEmailPassword(email, password, token);
+
+    Map<String, dynamic> json = jsonDecode(response.body);
 
     if (response.statusCode != HttpStatus.ok) {
       await clearAuthenticationState();
 
       notifyListeners();
 
-      return null;
+      return json['message'];
     }
 
-    Map<String, dynamic> json = jsonDecode(response.body);
     Profile profile = Profile.fromJson(json['profile']);
 
     await storeAuthenticationState(
@@ -75,21 +78,22 @@ class AuthenticationService extends ChangeNotifier {
 
     notifyListeners();
 
-    return profile;
+    return null;
   }
 
-  Future<Profile?> authenticateGoogle() async {
-    http.Response response = await AuthenticationApi.authenticateGoogle(token);
+  Future<String?> signinGoogle() async {
+    http.Response response = await AuthenticationApi.signinGoogle(token);
+
+    Map<String, dynamic> json = jsonDecode(response.body);
 
     if (response.statusCode != HttpStatus.ok) {
       await clearAuthenticationState();
 
       notifyListeners();
 
-      return null;
+      return json['message'];
     }
 
-    Map<String, dynamic> json = jsonDecode(response.body);
     Profile profile = Profile.fromJson(json['profile']);
 
     await storeAuthenticationState(
@@ -104,21 +108,22 @@ class AuthenticationService extends ChangeNotifier {
 
     notifyListeners();
 
-    return profile;
+    return null;
   }
 
-  Future<Profile?> pulse() async {
+  Future<String?> pulse() async {
     http.Response response = await AuthenticationApi.pulse(token);
 
+    Map<String, dynamic> json = jsonDecode(response.body);
+
     if (response.statusCode != HttpStatus.ok) {
       await clearAuthenticationState();
 
       notifyListeners();
 
-      return null;
+      return json['message'];
     }
 
-    Map<String, dynamic> json = jsonDecode(response.body);
     Profile profile = Profile.fromJson(json['profile']);
 
     await storeAuthenticationState(
@@ -133,7 +138,32 @@ class AuthenticationService extends ChangeNotifier {
 
     notifyListeners();
 
-    return profile;
+    return null;
+  }
+
+  Future<String?> update(
+    String? email,
+    String? password,
+    String? firstName,
+    String? lastName,
+  ) async {
+    http.Response response = await AuthenticationApi.update(
+      email,
+      password,
+      firstName,
+      lastName,
+      token,
+    );
+
+    if (response.statusCode != HttpStatus.ok) {
+      await clearAuthenticationState();
+
+      notifyListeners();
+
+      return jsonDecode(response.body)['message'];
+    }
+
+    return null;
   }
 
   Future<void> deauthenticate() async {
