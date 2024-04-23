@@ -34,8 +34,11 @@ class AuthenticationApi {
     );
   }
 
-  static Future<http.Response> authenticationEmailPassword(
-      String email, String password, String token) async {
+  static Future<http.Response> signinEmailPassword(
+    String email,
+    String password,
+    String token,
+  ) async {
     return await http.post(
       UriBuilder.asUri(secure, host, '/api/signin'),
       headers: {
@@ -49,7 +52,7 @@ class AuthenticationApi {
     );
   }
 
-  static Future<http.Response> authenticateGoogle(String token) async {
+  static Future<http.Response> signinGoogle(String token) async {
     http.Response response = await http.get(
       UriBuilder.asUri(secure, host, '/api/signin/google'),
       headers: {
@@ -71,6 +74,28 @@ class AuthenticationApi {
       headers: {
         HttpHeaders.authorizationHeader: 'Bearer $token',
       },
+    );
+  }
+
+  static Future<http.Response> update(
+    String? email,
+    String? password,
+    String? firstName,
+    String? lastName,
+    String token,
+  ) async {
+    return await http.post(
+      UriBuilder.asUri(secure, host, '/api/update'),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer $token'
+      },
+      body: jsonEncode({
+        'email': email,
+        'password': password,
+        'firstName': firstName,
+        'lastName': lastName,
+      }),
     );
   }
 
