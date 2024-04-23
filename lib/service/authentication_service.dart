@@ -168,12 +168,12 @@ class AuthenticationService extends ChangeNotifier {
     return null;
   }
 
-  Future<String?> update(
+  Future<String?> update({
     String? email,
     String? password,
     String? firstName,
     String? lastName,
-  ) async {
+  }) async {
     http.Response response = await AuthenticationApi.update(
       email,
       password,

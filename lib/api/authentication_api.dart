@@ -84,18 +84,31 @@ class AuthenticationApi {
     String? lastName,
     String token,
   ) async {
+    Map<String, String> data = {};
+
+    if (email != null) {
+      data['email'] = email;
+    }
+
+    if (password != null) {
+      data['password'] = password;
+    }
+
+    if (firstName != null) {
+      data['firstName'] = firstName;
+    }
+
+    if (lastName != null) {
+      data['lastName'] = lastName;
+    }
+
     return await http.post(
       UriBuilder.asUri(secure, host, '/api/update'),
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
         HttpHeaders.authorizationHeader: 'Bearer $token'
       },
-      body: jsonEncode({
-        'email': email,
-        'password': password,
-        'firstName': firstName,
-        'lastName': lastName,
-      }),
+      body: jsonEncode(data),
     );
   }
 
