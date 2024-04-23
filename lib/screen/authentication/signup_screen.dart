@@ -114,9 +114,9 @@ class _SignupScreenState extends State<SignupScreen> {
                               obscure: true,
                               validator: (value) =>
                                   widget.validationService.validatePassword(
-                                passwordController,
-                                passwordAgainController,
                                 value,
+                                passwordAController: passwordController,
+                                passwordBController: passwordAgainController,
                               ),
                             ),
                           ),
@@ -130,9 +130,9 @@ class _SignupScreenState extends State<SignupScreen> {
                               obscure: true,
                               validator: (value) =>
                                   widget.validationService.validatePassword(
-                                passwordController,
-                                passwordAgainController,
                                 value,
+                                passwordAController: passwordController,
+                                passwordBController: passwordAgainController,
                               ),
                             ),
                           ),
