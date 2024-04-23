@@ -51,8 +51,19 @@ class AuthenticationService extends ChangeNotifier {
     String email,
     String password,
   ) async {
-    http.Response response =
-        await AuthenticationApi.signinEmailPassword(email, password, token);
+    http.Response response = await AuthenticationApi.signinEmailPassword(
+      email,
+      password,
+      token,
+    );
+
+    if (response.statusCode == HttpStatus.unauthorized) {
+      await clearAuthenticationState();
+
+      notifyListeners();
+
+      return 'Invalid email address or password.';
+    }
 
     Map<String, dynamic> json = jsonDecode(response.body);
 
@@ -84,6 +95,14 @@ class AuthenticationService extends ChangeNotifier {
   Future<String?> signinGoogle() async {
     http.Response response = await AuthenticationApi.signinGoogle(token);
 
+    if (response.statusCode == HttpStatus.unauthorized) {
+      await clearAuthenticationState();
+
+      notifyListeners();
+
+      return 'Invalid email address or password.';
+    }
+
     Map<String, dynamic> json = jsonDecode(response.body);
 
     if (response.statusCode != HttpStatus.ok) {
@@ -113,6 +132,14 @@ class AuthenticationService extends ChangeNotifier {
 
   Future<String?> pulse() async {
     http.Response response = await AuthenticationApi.pulse(token);
+
+    if (response.statusCode == HttpStatus.unauthorized) {
+      await clearAuthenticationState();
+
+      notifyListeners();
+
+      return 'Invalid email address or password.';
+    }
 
     Map<String, dynamic> json = jsonDecode(response.body);
 
