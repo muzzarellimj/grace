@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 
 class Toast {
+  final Duration defaultDuration = const Duration(seconds: 5);
+
   final BuildContext context;
   final Color background;
   final Color foreground;
   final String message;
+  final Duration? duration;
 
   const Toast({
     required this.context,
     required this.background,
     required this.foreground,
     required this.message,
+    this.duration,
   });
 
   factory Toast.success(BuildContext context, String message) {
@@ -41,7 +45,7 @@ class Toast {
       behavior: SnackBarBehavior.floating,
       elevation: 0,
       dismissDirection: DismissDirection.up,
-      duration: Durations.extralong4,
+      duration: duration ?? defaultDuration,
       margin: EdgeInsets.only(
         left: MediaQuery.of(context).size.width * xMarginFactor,
         right: MediaQuery.of(context).size.width * xMarginFactor,
