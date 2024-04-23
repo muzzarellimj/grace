@@ -1,25 +1,25 @@
 class BookSearchResult {
   String id;
   String title;
+  List<String> authors;
   int publishDate;
-  String isbn10;
-  String isbn13;
+  String image;
 
   BookSearchResult({
     required this.id,
     required this.title,
+    required this.authors,
     required this.publishDate,
-    required this.isbn10,
-    required this.isbn13,
+    required this.image,
   });
 
   factory BookSearchResult.fromJson(Map<String, dynamic> input) {
     return BookSearchResult(
       id: input['id'],
       title: input['title'],
+      authors: input['authors'],
       publishDate: input['publish_date'],
-      isbn10: input['isbn_10'],
-      isbn13: input['isbn_13'],
+      image: input['image'],
     );
   }
 }
