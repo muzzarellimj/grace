@@ -18,15 +18,17 @@ class ValidationService {
   }
 
   String? validatePassword(
-    TextEditingController passwordController,
-    TextEditingController passwordAgainController,
-    String? value,
-  ) {
+    String? value, {
+    TextEditingController? passwordAController,
+    TextEditingController? passwordBController,
+  }) {
     if (value == null || value.isEmpty || value.length < 8) {
       return 'Please enter a password with 8 or more characters.';
     }
 
-    if (passwordController.value != passwordAgainController.value) {
+    if (passwordAController != null &&
+        passwordBController != null &&
+        passwordAController.text != passwordBController.text) {
       return 'Passwords need to match.';
     }
 
