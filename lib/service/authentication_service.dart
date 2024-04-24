@@ -6,6 +6,8 @@ import 'package:grace/api/authentication_api.dart';
 import 'package:grace/model/authentication/profile.dart';
 import 'package:grace/model/authentication/role.dart';
 import 'package:grace/model/authentication/status.dart';
+import 'package:grace/model/response/get_user_set.dart';
+import 'package:grace/model/response/response_status.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
@@ -210,6 +212,72 @@ class AuthenticationService extends ChangeNotifier {
     await clearAuthenticationState();
 
     notifyListeners();
+  }
+
+  Future<GetUserSetResponse> adminGetUserSet() async {
+    http.Response response = await AuthenticationApi.adminGetUserSet(token);
+
+    if (response.statusCode == HttpStatus.unauthorized) {
+      await clearAuthenticationState();
+
+      notifyListeners();
+
+      return GetUserSetResponse(
+        status: ResponseStatus.failure,
+        message: 'Oops! We hit a snag. Please try again.',
+      );
+    }
+
+    Map<String, dynamic> json = jsonDecode(response.body);
+
+    if (response.statusCode != HttpStatus.ok) {
+      return GetUserSetResponse(
+        status: ResponseStatus.failure,
+        message: json['message'],
+      );
+    }
+
+    List<Profile> users =
+        (json['data'] as List).map((user) => Profile.fromJson(user)).toList();
+
+    return GetUserSetResponse(status: ResponseStatus.success, users: users);
+  }
+
+  Future<String?> adminUpdate(
+    String id, {
+    String? email,
+    String? password,
+    String? firstName,
+    String? lastName,
+    Role? role,
+    Status? status,
+  }) async {
+    http.Response response = await AuthenticationApi.adminUpdateUser(
+      id,
+      email,
+      password,
+      firstName,
+      lastName,
+      role?.identifier,
+      status?.identifier,
+      token,
+    );
+
+    if (response.statusCode == HttpStatus.unauthorized) {
+      await clearAuthenticationState();
+
+      notifyListeners();
+
+      return 'Oops! We hit a snag. Please try again.';
+    }
+
+    Map<String, dynamic> json = jsonDecode(response.body);
+
+    if (response.statusCode != HttpStatus.ok) {
+      return json['message'];
+    }
+
+    return null;
   }
 
   Future<void> clearAuthenticationState() async {

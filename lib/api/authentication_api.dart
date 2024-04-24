@@ -120,4 +120,61 @@ class AuthenticationApi {
       },
     );
   }
+
+  static Future<http.Response> adminGetUserSet(String token) async {
+    return await http.get(
+      UriBuilder.asUri(secure, host, '/api/administration/user'),
+      headers: {
+        HttpHeaders.authorizationHeader: 'Bearer $token',
+      },
+    );
+  }
+
+  static Future<http.Response> adminUpdateUser(
+    String id,
+    String? email,
+    String? password,
+    String? firstName,
+    String? lastName,
+    int? role,
+    int? status,
+    String token,
+  ) async {
+    Map<String, dynamic> data = {};
+
+    data['id'] = id;
+
+    if (email != null) {
+      data['email'] = email;
+    }
+
+    if (password != null) {
+      data['password'] = password;
+    }
+
+    if (firstName != null) {
+      data['firstName'] = firstName;
+    }
+
+    if (lastName != null) {
+      data['lastName'] = lastName;
+    }
+
+    if (role != null) {
+      data['role'] = role;
+    }
+
+    if (status != null) {
+      data['status'] = status;
+    }
+
+    return await http.post(
+      UriBuilder.asUri(secure, host, '/api/administration/update'),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer $token'
+      },
+      body: jsonEncode(data),
+    );
+  }
 }
