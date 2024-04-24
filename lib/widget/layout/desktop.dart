@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:grace/service/authentication_service.dart';
 import 'package:grace/theme/measurement.dart';
 
 class DesktopLayout extends StatelessWidget {
   final Widget body;
   final int selectedIndex;
   final ValueChanged<int> onDestinationSelected;
+  final AuthenticationService authenticationService;
 
   const DesktopLayout({
     required super.key,
     required this.body,
     required this.selectedIndex,
     required this.onDestinationSelected,
+    required this.authenticationService,
   });
 
   @override
@@ -41,6 +45,32 @@ class DesktopLayout extends StatelessWidget {
               buildDestination(Icons.library_books_outlined, 'Collections'),
               buildDestination(Icons.settings_outlined, 'Settings'),
             ],
+            trailing: Expanded(
+              child: Container(
+                alignment: Alignment.bottomCenter,
+                padding: EdgeInsets.only(
+                  bottom: Measurement.getSpacing(3.5),
+                ),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(12.0),
+                  hoverColor: Theme.of(context).primaryColorLight,
+                  onTap: () => handleLogoutButtonTap(context),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      top: Measurement.getSpacing(0.5),
+                      bottom: Measurement.getSpacing(0.5),
+                      left: Measurement.getSpacing(1.0),
+                      right: Measurement.getSpacing(1.0),
+                    ),
+                    child: Icon(
+                      Icons.logout_outlined,
+                      size: Measurement.getSizing(2.5),
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ),
           Expanded(child: body),
         ],
@@ -63,5 +93,13 @@ class DesktopLayout extends StatelessWidget {
       size: Measurement.getSizing(2.5),
       color: Theme.of(context).primaryColor,
     );
+  }
+
+  void handleLogoutButtonTap(context) {
+    authenticationService.deauthenticate().then(
+          (_) => GoRouter.of(context).goNamed(
+            'signin',
+          ),
+        );
   }
 }

@@ -63,6 +63,7 @@ class GraceRouter {
         ) {
           return ResponsiveLayout(
             navigationShell: navigationShell,
+            authenticationService: authenticationService,
           );
         },
         branches: [
