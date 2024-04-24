@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:grace/api/authentication_api.dart';
 import 'package:grace/model/authentication/profile.dart';
+import 'package:grace/model/authentication/role.dart';
+import 'package:grace/model/authentication/status.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
@@ -19,6 +21,9 @@ class AuthenticationService extends ChangeNotifier {
   String get email => store.get('email') ?? '';
   String get firstName => store.get('firstName') ?? '';
   String get lastName => store.get('lastName') ?? '';
+
+  Role get role => Role.fromIdentifier(store.get('role'));
+  Status get status => Status.fromIdentifier(store.get('status'));
 
   Future<String?> signup(
     String email,
@@ -85,6 +90,8 @@ class AuthenticationService extends ChangeNotifier {
       profile.email,
       profile.firstName,
       profile.lastName,
+      profile.role.identifier,
+      profile.status.identifier,
     );
 
     notifyListeners();
@@ -123,6 +130,8 @@ class AuthenticationService extends ChangeNotifier {
       profile.email,
       profile.firstName,
       profile.lastName,
+      profile.role.identifier,
+      profile.status.identifier,
     );
 
     notifyListeners();
@@ -161,6 +170,8 @@ class AuthenticationService extends ChangeNotifier {
       profile.email,
       profile.firstName,
       profile.lastName,
+      profile.role.identifier,
+      profile.status.identifier,
     );
 
     notifyListeners();
@@ -211,6 +222,9 @@ class AuthenticationService extends ChangeNotifier {
     await store.put('email', null);
     await store.put('firstName', null);
     await store.put('lastName', null);
+
+    await store.put('role', null);
+    await store.put('status', null);
   }
 
   Future<void> storeAuthenticationState(
@@ -221,6 +235,8 @@ class AuthenticationService extends ChangeNotifier {
     String? email,
     String firstName,
     String lastName,
+    int role,
+    int status,
   ) async {
     await store.put('isAuthenticated', isAuthenticated);
     await store.put('token', token);
@@ -231,5 +247,8 @@ class AuthenticationService extends ChangeNotifier {
     await store.put('email', email);
     await store.put('firstName', firstName);
     await store.put('lastName', lastName);
+
+    await store.put('role', role);
+    await store.put('status', status);
   }
 }
