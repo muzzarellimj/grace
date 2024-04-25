@@ -8,27 +8,27 @@ import 'package:grace/model/material/movie/search_result.dart';
 enum MaterialDescriptor {
   book(
     endpoint: '/api/book',
-    matFactory: Book.fromJson,
-    setFactory: BookSearchResult.fromJson,
+    matFetchFactory: Book.fromJson,
+    matSearchFactory: BookSearchResult.fromJson,
   ),
   game(
     endpoint: '/api/game',
-    matFactory: Game.fromJson,
-    setFactory: GameSearchResult.fromJson,
+    matFetchFactory: Game.fromJson,
+    matSearchFactory: GameSearchResult.fromJson,
   ),
   movie(
     endpoint: '/api/movie',
-    matFactory: Movie.fromJson,
-    setFactory: MovieSearchResult.fromJson,
+    matFetchFactory: Movie.fromJson,
+    matSearchFactory: MovieSearchResult.fromJson,
   );
 
   final String endpoint;
-  final Function matFactory;
-  final Function setFactory;
+  final Function matFetchFactory;
+  final Function matSearchFactory;
 
   const MaterialDescriptor({
     required this.endpoint,
-    required this.matFactory,
-    required this.setFactory,
+    required this.matFetchFactory,
+    required this.matSearchFactory,
   });
 }
