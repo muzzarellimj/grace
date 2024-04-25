@@ -23,23 +23,26 @@ class MaterialPreview extends StatelessWidget {
       elevation: 0,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       semanticContainer: true,
-      child: Row(
-        children: [
-          Expanded(
-            flex: MediaQuery.of(context).size.width > 450 ? 2 : 1,
-            child: FractionallySizedBox(
-              heightFactor: 1.0,
-              child: Image.network(
-                imageSrc,
-                fit: BoxFit.cover,
+      child: AspectRatio(
+        aspectRatio: 3 / 2,
+        child: Row(
+          children: [
+            Expanded(
+              flex: MediaQuery.of(context).size.width > 450 ? 2 : 1,
+              child: FractionallySizedBox(
+                heightFactor: 1.0,
+                child: Image.network(
+                  imageSrc,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
-          Expanded(
-            flex: MediaQuery.of(context).size.width > 450 ? 3 : 2,
-            child: previewContext,
-          )
-        ],
+            Expanded(
+              flex: MediaQuery.of(context).size.width > 450 ? 3 : 2,
+              child: previewContext,
+            )
+          ],
+        ),
       ),
     );
   }
