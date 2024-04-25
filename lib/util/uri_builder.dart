@@ -1,6 +1,11 @@
 class UriBuilder {
-  static Uri asUri(bool secure, String host, String path) {
-    return secure ? Uri.https(host, path) : Uri.http(host, path);
+  static Uri asUri(
+    bool secure,
+    String host,
+    String path, {
+    Map<String, dynamic>? query,
+  }) {
+    return secure ? Uri.https(host, path, query) : Uri.http(host, path, query);
   }
 
   static String asString(bool secure, String host, String path) {
