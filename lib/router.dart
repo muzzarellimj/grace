@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:grace/screen/administration_screen.dart';
 import 'package:grace/screen/authentication/signin_screen.dart';
 import 'package:grace/screen/authentication/signup_screen.dart';
 import 'package:grace/screen/collections.dart';
@@ -17,6 +18,8 @@ class GraceRouter {
       GlobalKey<NavigatorState>(debugLabel: 'collections');
   static final settingsNavigationKey =
       GlobalKey<NavigatorState>(debugLabel: 'settings');
+  static final administrationNavigationKey =
+      GlobalKey<NavigatorState>(debugLabel: 'administration');
 
   static final authenticationService = AuthenticationService();
 
@@ -111,6 +114,24 @@ class GraceRouter {
                 ) =>
                     NoTransitionPage(
                   child: SettingsScreen(
+                    authenticationService: authenticationService,
+                  ),
+                ),
+              )
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: administrationNavigationKey,
+            routes: [
+              GoRoute(
+                name: 'administration',
+                path: '/administration',
+                pageBuilder: (
+                  BuildContext context,
+                  GoRouterState state,
+                ) =>
+                    NoTransitionPage(
+                  child: AdministrationScreen(
                     authenticationService: authenticationService,
                   ),
                 ),

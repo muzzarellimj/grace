@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:grace/model/authentication/role.dart';
 import 'package:grace/service/authentication_service.dart';
 import 'package:grace/theme/measurement.dart';
 
@@ -19,6 +20,8 @@ class DesktopLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<NavigationRailDestination> destinationSet = buildDestinationSet();
+
     return Scaffold(
       body: Row(
         children: [
@@ -40,11 +43,7 @@ class DesktopLayout extends StatelessWidget {
                 height: Measurement.getSizing(3.0),
               ),
             ),
-            destinations: [
-              buildDestination(Icons.home_outlined, 'Home'),
-              buildDestination(Icons.library_books_outlined, 'Collections'),
-              buildDestination(Icons.settings_outlined, 'Settings'),
-            ],
+            destinations: destinationSet,
             trailing: Expanded(
               child: Container(
                 alignment: Alignment.bottomCenter,
@@ -76,6 +75,24 @@ class DesktopLayout extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  List<NavigationRailDestination> buildDestinationSet() {
+    List<NavigationRailDestination> destinationSet = [];
+
+    destinationSet.addAll([
+      buildDestination(Icons.home_outlined, 'Home'),
+      buildDestination(Icons.library_books_outlined, 'Collections'),
+      buildDestination(Icons.settings_outlined, 'Settings'),
+    ]);
+
+    if (authenticationService.role == Role.administrator) {
+      destinationSet.add(
+        buildDestination(Icons.rule_outlined, 'Administrative Dashboard'),
+      );
+    }
+
+    return destinationSet;
   }
 
   NavigationRailDestination buildDestination(IconData icon, String label) {
