@@ -3,11 +3,11 @@ import 'package:grace/model/response/response_status.dart';
 class GetMaterialResponse<M> {
   ResponseStatus status;
   String? message;
-  M? material;
+  List<M>? materials;
 
   GetMaterialResponse({
     required this.status,
-    required this.message,
-    required this.material,
+    this.message,
+    this.materials,
   });
 }

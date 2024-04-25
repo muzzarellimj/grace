@@ -1,13 +1,13 @@
 import 'package:grace/model/response/response_status.dart';
 
-class GetMaterialSetResponse<M> {
+class UpdateMaterialResponse {
   ResponseStatus status;
   String? message;
-  List<M>? materials;
+  int? id;
 
-  GetMaterialSetResponse({
+  UpdateMaterialResponse({
     required this.status,
-    required this.message,
-    required this.materials,
+    this.message,
+    this.id,
   });
 }
