@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:grace/service/authentication_service.dart';
+import 'package:grace/service/library_service.dart';
 import 'package:grace/theme/measurement.dart';
 import 'package:grace/widget/button/primary_icon.dart';
+import 'package:grace/widget/material/material_overview.dart';
 
 class MaterialPreviewContext extends StatelessWidget {
+  final AuthenticationService authenticationService;
+  final LibraryService libraryService;
+  final Object mat;
   final String headline;
   final String attribution;
   final String description;
 
   const MaterialPreviewContext({
     super.key,
+    required this.authenticationService,
+    required this.libraryService,
+    required this.mat,
     required this.headline,
     required this.attribution,
     required this.description,
@@ -54,7 +63,25 @@ class MaterialPreviewContext extends StatelessWidget {
               child: PrimaryIconButton(
                 icon: Icons.arrow_outward,
                 label: 'See more',
-                onPressed: () {},
+                onPressed: () {
+                  showModalBottomSheet(
+                    context: context,
+                    backgroundColor: Colors.white,
+                    elevation: 0,
+                    isScrollControlled: true,
+                    constraints: BoxConstraints(
+                      maxHeight: MediaQuery.of(context).size.height * 0.75,
+                      minWidth: MediaQuery.of(context).size.width * 0.75,
+                    ),
+                    builder: (BuildContext context) {
+                      return MaterialOverview(
+                        authenticationService: authenticationService,
+                        libraryService: libraryService,
+                        mat: mat,
+                      );
+                    },
+                  );
+                },
               ),
             ),
           )

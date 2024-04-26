@@ -17,7 +17,7 @@ class BookSearchResult {
     return BookSearchResult(
       id: input['id'],
       title: input['title'],
-      authors: input['authors'],
+      authors: (input['authors'] as List).cast<String>(),
       publishDate: input['publish_date'],
       image: input['image'],
     );

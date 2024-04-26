@@ -81,7 +81,7 @@ class MaterialService<F, S> {
   }
 
   Future<GetMaterialResponse<F>> fetchRecent({
-    int limit = 10,
+    int? limit,
   }) async {
     http.Response existenceResponse = await MaterialApi.fetchExistence(
       descriptor: descriptor,
@@ -97,12 +97,13 @@ class MaterialService<F, S> {
     List<int> idSet = jsonDecode(existenceResponse.body)['data'].cast<int>();
     idSet.sort();
 
-    if (limit >= idSet.length) {
-      limit = idSet.length - 1;
+    limit ??= 10;
+
+    if (limit > idSet.length) {
+      limit = idSet.length;
     }
 
-    List<int> recentIdSet =
-        idSet.sublist(idSet.length - limit - 1, idSet.length - 1);
+    List<int> recentIdSet = idSet.sublist(idSet.length - limit, idSet.length);
 
     return await fetchMany(recentIdSet);
   }
@@ -144,7 +145,7 @@ class MaterialService<F, S> {
       case HttpStatus.ok:
         return StoreMaterialResponse(
           status: ResponseStatus.success,
-          id: jsonDecode(response.body)['id'],
+          id: jsonDecode(response.body)['data']['id'],
         );
 
       case HttpStatus.noContent || HttpStatus.badRequest:
@@ -161,7 +162,7 @@ class MaterialService<F, S> {
     }
   }
 
-  Future<GetMaterialResponse<S>> search(String query) async {
+  Future<GetMaterialResponse> search(String query) async {
     http.Response response = await MaterialApi.search(
       descriptor: descriptor,
       query: query,
@@ -169,8 +170,8 @@ class MaterialService<F, S> {
 
     switch (response.statusCode) {
       case HttpStatus.ok:
-        List<S> results = (jsonDecode(response.body)['data'] as List)
-            .map<S>((result) => descriptor.matSearchFactory(result))
+        List results = (jsonDecode(response.body)['data'] as List)
+            .map((result) => descriptor.matSearchFactory(result))
             .toList();
 
         return GetMaterialResponse(

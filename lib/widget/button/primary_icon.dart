@@ -3,14 +3,14 @@ import 'package:grace/theme/measurement.dart';
 
 class PrimaryIconButton extends StatelessWidget {
   final IconData icon;
-  final String label;
+  final String? label;
   final Function() onPressed;
   final double? widthFactor;
 
   const PrimaryIconButton({
     super.key,
     required this.icon,
-    required this.label,
+    this.label,
     required this.onPressed,
     this.widthFactor,
   });
@@ -25,9 +25,11 @@ class PrimaryIconButton extends StatelessWidget {
           icon,
           size: Measurement.getSizing(1.35),
         ),
-        label: Text(
-          label,
-        ),
+        label: label != null
+            ? Text(
+                label!,
+              )
+            : const SizedBox.shrink(),
         style: ButtonStyle(
           animationDuration: Duration.zero,
           backgroundColor: MaterialStateColor.resolveWith(

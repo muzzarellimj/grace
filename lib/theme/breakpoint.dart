@@ -28,4 +28,12 @@ enum Breakpoint {
       'Unsupported width "$width" provided; a breakpoint could not be determined.',
     );
   }
+
+  bool isMobile(Breakpoint breakpoint) =>
+      breakpoint == Breakpoint.xs || breakpoint == Breakpoint.sm;
+
+  bool isDesktop(Breakpoint breakpoint) =>
+      breakpoint == Breakpoint.md ||
+      breakpoint == Breakpoint.lg ||
+      breakpoint == Breakpoint.xl;
 }

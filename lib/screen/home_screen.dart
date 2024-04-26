@@ -6,6 +6,7 @@ import 'package:grace/model/material/movie/movie.dart';
 import 'package:grace/model/response/get_material.dart';
 import 'package:grace/model/response/response_status.dart';
 import 'package:grace/service/authentication_service.dart';
+import 'package:grace/service/library_service.dart';
 import 'package:grace/service/material_service.dart';
 import 'package:grace/theme/measurement.dart';
 import 'package:grace/widget/collection/collection.dart';
@@ -13,6 +14,8 @@ import 'package:grace/widget/collection/collection.dart';
 class HomeScreen extends StatefulWidget {
   final List<int> recentIdSet =
       List.generate(1000, (index) => index + 1).reversed.toList();
+
+  final LibraryService libraryService = LibraryService();
 
   final AuthenticationService authenticationService;
 
@@ -84,6 +87,8 @@ class HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.only(bottom: Measurement.getSpacing(3.0)),
             ),
             Collection(
+              authenticationService: widget.authenticationService,
+              libraryService: widget.libraryService,
               headline: 'Recently added books',
               materials: books,
             ),
@@ -91,6 +96,8 @@ class HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.only(bottom: Measurement.getSpacing(3.0)),
             ),
             Collection(
+              authenticationService: widget.authenticationService,
+              libraryService: widget.libraryService,
               headline: 'Recently added games',
               materials: games,
             ),
@@ -98,6 +105,8 @@ class HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.only(bottom: Measurement.getSpacing(3.0)),
             ),
             Collection(
+              authenticationService: widget.authenticationService,
+              libraryService: widget.libraryService,
               headline: 'Recently added movies',
               materials: movies,
             ),

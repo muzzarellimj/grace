@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:grace/service/authentication_service.dart';
+import 'package:grace/service/library_service.dart';
 import 'package:grace/theme/measurement.dart';
 import 'package:grace/widget/material/material_preview.dart';
 
@@ -7,11 +9,15 @@ class Collection extends StatelessWidget {
 
   final ScrollController _scrollController = ScrollController();
 
+  final AuthenticationService authenticationService;
+  final LibraryService libraryService;
   final String headline;
   final List<Object> materials;
 
   Collection({
     super.key,
+    required this.authenticationService,
+    required this.libraryService,
     required this.headline,
     required this.materials,
   });
@@ -49,7 +55,11 @@ class Collection extends StatelessWidget {
                       shrinkWrap: true,
                       children:
                           List<Widget>.generate(materials.length, (index) {
-                        return MaterialPreview(mat: materials[index]);
+                        return MaterialPreview(
+                          authenticationService: authenticationService,
+                          libraryService: libraryService,
+                          mat: materials[index],
+                        );
                       }),
                     ),
                   ),

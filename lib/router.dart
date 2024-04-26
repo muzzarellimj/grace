@@ -3,8 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:grace/screen/administration_screen.dart';
 import 'package:grace/screen/authentication/signin_screen.dart';
 import 'package:grace/screen/authentication/signup_screen.dart';
-import 'package:grace/screen/collections.dart';
 import 'package:grace/screen/home_screen.dart';
+import 'package:grace/screen/library/library_screen.dart';
 import 'package:grace/screen/settings.dart';
 import 'package:grace/service/authentication_service.dart';
 import 'package:grace/widget/layout/responsive.dart';
@@ -98,8 +98,11 @@ class GraceRouter {
                   BuildContext context,
                   GoRouterState state,
                 ) =>
-                    const NoTransitionPage(
-                  child: CollectionsScreen(),
+                    NoTransitionPage(
+                  key: UniqueKey(),
+                  child: LibraryScreen(
+                    authenticationService: authenticationService,
+                  ),
                 ),
               )
             ],

@@ -2,15 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:grace/model/material/book/book.dart';
 import 'package:grace/model/material/game/game.dart';
 import 'package:grace/model/material/movie/movie.dart';
+import 'package:grace/service/authentication_service.dart';
+import 'package:grace/service/library_service.dart';
+import 'package:grace/theme/breakpoint.dart';
 import 'package:grace/widget/material/material_preview_context.dart';
 
 class MaterialPreview extends StatelessWidget {
+  final AuthenticationService authenticationService;
+  final LibraryService libraryService;
   final Object mat;
 
-  const MaterialPreview({super.key, required this.mat});
+  const MaterialPreview({
+    super.key,
+    required this.authenticationService,
+    required this.libraryService,
+    required this.mat,
+  });
 
   @override
   Widget build(BuildContext context) {
+    Breakpoint breakpoint = Breakpoint.inRange(
+      MediaQuery.of(context).size.width,
+    );
+
     String imageSrc = getImageSrc();
     Widget previewContext = getMaterialPreviewContext(context);
 
@@ -28,7 +42,7 @@ class MaterialPreview extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-              flex: MediaQuery.of(context).size.width > 450 ? 2 : 1,
+              flex: breakpoint.isMobile(breakpoint) ? 1 : 2,
               child: FractionallySizedBox(
                 heightFactor: 1.0,
                 child: Image.network(
@@ -38,7 +52,7 @@ class MaterialPreview extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: MediaQuery.of(context).size.width > 450 ? 3 : 2,
+              flex: breakpoint.isMobile(breakpoint) ? 2 : 3,
               child: previewContext,
             )
           ],
@@ -77,6 +91,9 @@ class MaterialPreview extends StatelessWidget {
     Book book = mat as Book;
 
     return MaterialPreviewContext(
+      authenticationService: authenticationService,
+      libraryService: libraryService,
+      mat: book,
       headline: book.title,
       attribution: book.authors
           .map((author) => '${author.firstName} ${author.lastName}')
@@ -89,6 +106,9 @@ class MaterialPreview extends StatelessWidget {
     Game game = mat as Game;
 
     return MaterialPreviewContext(
+      authenticationService: authenticationService,
+      libraryService: libraryService,
+      mat: game,
       headline: game.title,
       attribution: game.studios.map((studio) => studio.name).join(', '),
       description: game.summary,
@@ -99,6 +119,9 @@ class MaterialPreview extends StatelessWidget {
     Movie movie = mat as Movie;
 
     return MaterialPreviewContext(
+      authenticationService: authenticationService,
+      libraryService: libraryService,
+      mat: movie,
       headline: movie.title,
       attribution: movie.productionCompanies
           .map((productionCompany) => productionCompany.name)
